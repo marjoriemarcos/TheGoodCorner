@@ -1,0 +1,59 @@
+GET http://localhost:4000/
+
+###
+
+GET http://localhost:4000/ads
+
+###
+
+GET http://localhost:4000/categories
+
+###
+
+GET http://localhost:4000/tags
+
+###
+
+DELETE http://localhost:4000/tags/21
+
+###
+
+GET http://localhost:4000/ads/29
+
+###
+
+POST http://localhost:4000/ads
+Content-Type: application/json
+
+{
+    "title": "Hello World",
+    "description": "This is a test ad",
+    "owner": "Marjoriiieessss",
+    "price": 2000,
+    "picture": "https://www.automobile-magazine.fr/asset/cms/34973/config/28294/apres-plusieurs-prototypes-la-bollore-bluecar-a-fini-par-devoiler-sa-version-definitive.jpg",
+    "location": "Paris",
+    "createdAt": "2021-09-01T12:00:00.000Z",
+    "categoryId": 2,
+    "tags": [3]
+}
+
+###
+
+PUT http://localhost:4000/ads/29
+Content-Type: application/json
+
+{
+    "title": "Hello World",
+    "description": "This is a test ad",
+    "owner": "Marjorie",
+    "price": 2000,
+    "picture": "https://www.automobile-magazine.fr/asset/cms/34973/config/28294/apres-plusieurs-prototypes-la-bollore-bluecar-a-fini-par-devoiler-sa-version-definitive.jpg",
+    "location": "Paris",
+    "createdAt": "2021-09-01T12:00:00.000Z",
+    "categoryId": 1,
+    "tags": [3]
+}
+
+###
+
+DELETE http://localhost:4000/ads/29

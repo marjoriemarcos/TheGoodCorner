@@ -1,0 +1,6 @@
+CATEGORY: name, createdAt
+ 
+
+AD: title, description, owner, price, picture, location, createdAt
+HAS, 0N CATEGORY, 11 AD
+

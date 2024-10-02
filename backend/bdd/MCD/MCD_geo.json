@@ -1,0 +1,19 @@
+{
+  "width": 168,
+  "height": 263,
+  "cx": [
+    [ "CATEGORY", 48 ],
+    [ "AD", 48 ],
+    [ "HAS", 139 ]
+  ],
+  "cy": [
+    [ "CATEGORY", 43 ],
+    [ "AD", 178 ],
+    [ "HAS", 178 ]
+  ],
+  "shift": [
+    [ "HAS,CATEGORY,0", 0 ],
+    [ "HAS,AD,0", 0 ]
+  ],
+  "ratio": []
+}
