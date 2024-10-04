@@ -1,6 +1,6 @@
-import Header from './Header'
+import Header from './organisms/Header'
 import { Outlet } from "react-router-dom";
-import './css/index.css';
+import './css/app.css';
 
 function App() {
   return (

@@ -1,20 +1,8 @@
 GET http://localhost:4000/
 
-###
+### AD
 
 GET http://localhost:4000/ads
-
-###
-
-GET http://localhost:4000/categories
-
-###
-
-GET http://localhost:4000/tags
-
-###
-
-DELETE http://localhost:4000/tags/21
 
 ###
 
@@ -57,3 +45,71 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:4000/ads/29
+
+### CATEGORY
+
+GET http://localhost:4000/categories
+
+###
+
+GET http://localhost:4000/categories/5
+
+###
+
+POST http://localhost:4000/categories
+Content-Type: application/json
+
+{
+    "name": "Hello World",
+    "createdAt": "2021-09-01T12:00:00.000Z"
+}
+
+###
+
+PUT http://localhost:4000/categories/5
+Content-Type: application/json
+
+{
+    "name": "Hello Worldddddd",
+    "createdAt": "2021-09-01T12:00:00.000Z"
+}
+
+###
+
+DELETE http://localhost:4000/categories/5
+
+
+###
+
+GET http://localhost:4000/tags
+
+###
+
+GET http://localhost:4000/tags/22
+
+###
+
+POST http://localhost:4000/tags
+Content-Type: application/json
+
+{
+    "name": "Marjo",
+    "createdAt": "2021-09-01T12:00:00.000Z"
+}
+
+###
+
+PUT http://localhost:4000/tags/22
+Content-Type: application/json
+
+{
+    "name": "Marjoeeeee",
+    "createdAt": "2021-09-01T12:00:00.000Z"
+}
+
+###
+
+DELETE http://localhost:4000/tags/22
+
+###
+

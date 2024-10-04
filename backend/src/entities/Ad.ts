@@ -32,7 +32,10 @@ import { Tag } from "./Tag";
     )
     category!: Category;
 
-    @ManyToMany(() => Tag, (tag) => tag.ads)
+    @ManyToMany(
+      () => Tag, 
+      (tag) => tag.ads
+    )
     @JoinTable()
     tags!: Tag[];
 

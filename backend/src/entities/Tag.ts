@@ -12,7 +12,10 @@ import { Ad } from "./Ad";
     @Column()
     createdAt!: string;
 
-    @ManyToMany(() => Ad, (ad) => ad.tags)
+    @ManyToMany(
+      () => Ad, 
+      (ad) => ad.tags
+    )
     ads!: Ad[];
 
   }

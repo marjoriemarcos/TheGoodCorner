@@ -1,11 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RecentAds from './RecentAds.tsx';
-import AdDetail from './pages/AdDetail.tsx';
 import App from './App.tsx';
-import './css/index.css';
 import './css/app.css';
+import AdCreatForm from './pages/AdCreatForm.tsx';
+import HomePage from './pages/HomePage.tsx';
+import AdPage from './pages/AdPage.tsx';
+import AdSearch from './pages/AdSearchCategory.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "/",
-				element: <RecentAds />,
+				element: <HomePage />,
 			},
 			{
 				path: "/about",
@@ -22,7 +23,15 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/ads/:adId",
-				element: <AdDetail />,
+				element: <AdPage />,
+			},
+			{
+				path: "/categories/:categoryId",
+				element: <AdSearch />,
+			},
+			{
+				path: "/ads/new",
+				element: <AdCreatForm />,
 			},
 		],
 	},
