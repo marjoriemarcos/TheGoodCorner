@@ -11,9 +11,9 @@ function AdPrice(props: AdPriceProps) {
   return (
       <>
             <button 
-                className="btn btn-outline-warning m-1"
+                className="btn btn-outline-secondary m-1"
                 onClick={() => props.setTotal(props.total + props.price)}>
-                Add price to total
+                Ajouter au panier
             </button>
       </>
   );

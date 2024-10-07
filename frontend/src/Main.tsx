@@ -6,7 +6,9 @@ import './css/app.css';
 import AdCreatForm from './pages/AdCreatForm.tsx';
 import HomePage from './pages/HomePage.tsx';
 import AdPage from './pages/AdPage.tsx';
-import AdSearch from './pages/AdSearchCategory.tsx';
+import AdSearch from './pages/AdSearch.tsx';
+import AdEditForm from './pages/AdEditForm.tsx';
+
 
 const router = createBrowserRouter([
 	{
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
 			{
 				path: "/ads/new",
 				element: <AdCreatForm />,
+			},
+			{
+				path: "/ads/edit/:adId",
+				element: <AdEditForm />,
 			},
 		],
 	},

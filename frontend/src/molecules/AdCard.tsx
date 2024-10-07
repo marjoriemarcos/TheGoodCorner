@@ -30,7 +30,11 @@ function AdCard( props: AdCardProps ) {
                 <div className="ad-card-price">{props.category.name} </div>
             </div>
             </Link>
-              <button className="btn btn-outline-danger m-1" type="button" onClick={ () => hRemove(props.id)}>Supprimer cette annonce</button>
+              <button className="btn btn-outline-danger m-1" type="button" onClick={ () => hRemove(props.id)}>Supprimer</button>
+            <Link className="ad-card-link" to={`/ads/edit/${props.id}`}>
+                <button className="btn btn-outline-warning m-1" type="button">Modifer</button>
+            </Link>
+              
       </>
   );
 }

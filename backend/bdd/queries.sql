@@ -1,23 +1,24 @@
+-- SQLite
 
 
-INSERT INTO ad (title, description, owner, price, picture, location, createdAt, category_id) 
+INSERT INTO ad (title, description, owner, price, picture, location, createdAt, categoryId) 
 VALUES 
-('Vends vélo', 'Vends vélo en bon état', 'Jean', 100, 'https://example.com/velo.jpg', 'Paris', '2024-09-27 14:00:00', 3),
-('Vends voiture', 'Vends voiture en bon état', 'Jean', 1000, 'https://example.com/voiture.jpg', 'Paris', '2024-09-27 14:00:00', 1),
-('Vends ordinateur', 'Vends ordinateur en bon état', 'Jean', 500, 'https://example.com/ordi.jpg', 'Paris', '2024-09-27 14:00:00', 3),
-('Vends téléphone', 'Vends téléphone en bon état', 'Jean', 200, 'https://example.com/tel.jpg', 'Paris', '2024-09-27 14:00:00', 3),
-('Vends table', 'Vends table en bon état', 'Jean', 50, 'https://example.com/table.jpg', 'Bordeaux', '2024-09-27 14:00:00', 3),
-('Vends chaise', 'Vends chaise en bon état', 'Jean', 20, 'https://example.com/chaise.jpg', 'Bordeaux', '2024-09-27 14:00:00', 3),
-('Vends canapé', 'Vends canapé en bon état', 'Jean', 100, 'https://example.com/canape.jpg', 'Bordeaux', '2024-09-27 14:00:00', 3),
-('Vends lit', 'Vends lit en bon état', 'Jean', 100, 'https://example.com/lit.jpg', 'Bordeaux', '2024-09-27 14:00:00', 3),
-('Vends armoire', 'Vends armoire en bon état', 'Jean', 100, 'https://example.com/armoire.jpg', 'Bordeaux', '2024-09-27 14:00:00', 3),
-('Vends frigo', 'Vends frigo en bon état', 'Jean', 100, 'https://example.com/frigo.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
-('Vends four', 'Vends four en bon état', 'Jean', 100, 'https://example.com/four.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
-('Vends micro-ondes', 'Vends micro-ondes en bon état', 'Jean', 100, 'https://example.com/micro-ondes.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
-('Vends lave-linge', 'Vends lave-linge en bon état', 'Jean', 100, 'https://example.com/lave-linge.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
-('Vends sèche-linge', 'Vends sèche-linge en bon état', 'Jean', 100, 'https://example.com/seche-linge.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
-('Vends lave-vaisselle', 'Vends lave-vaisselle en bon état', 'Jean', 100, 'https://example.com/lave-vaisselle.jpg', 'Paris', '2024-09-27 14:00:00', 3),
-('Vends aspirateur', 'Vends aspirateur en bon état', 'Jean', 100, 'https://example.com/aspirateur.jpg', 'Paris', '2024-09-27 14:00:00', 3);
+('Vends vélo', 'Vends vélo en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Paris', '2024-09-27 14:00:00', 3),
+('Vends voiture', 'Vends voiture en bon état', 'Jean', 1000, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Paris', '2024-09-27 14:00:00', 1),
+('Vends ordinateur', 'Vends ordinateur en bon état', 'Jean', 500, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Paris', '2024-09-27 14:00:00', 2),
+('Vends téléphone', 'Vends téléphone en bon état', 'Jean', 200, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Paris', '2024-09-27 14:00:00', 2),
+('Vends table', 'Vends table en bon état', 'Jean', 50, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Bordeaux', '2024-09-27 14:00:00', 2),
+('Vends chaise', 'Vends chaise en bon état', 'Jean', 20, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Bordeaux', '2024-09-27 14:00:00', 3),
+('Vends canapé', 'Vends canapé en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Bordeaux', '2024-09-27 14:00:00', 1),
+('Vends lit', 'Vends lit en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Bordeaux', '2024-09-27 14:00:00', 3),
+('Vends armoire', 'Vends armoire en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Bordeaux', '2024-09-27 14:00:00', 1),
+('Vends frigo', 'Vends frigo en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
+('Vends four', 'Vends four en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
+('Vends micro-ondes', 'Vends micro-ondes en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Lyon', '2024-09-27 14:00:00', 2),
+('Vends lave-linge', 'Vends lave-linge en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Lyon', '2024-09-27 14:00:00', 3),
+('Vends sèche-linge', 'Vends sèche-linge en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Lyon', '2024-09-27 14:00:00', 1),
+('Vends lave-vaisselle', 'Vends lave-vaisselle en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Paris', '2024-09-27 14:00:00', 3),
+('Vends aspirateur', 'Vends aspirateur en bon état', 'Jean', 100, 'https://previews.123rf.com/images/elenaistomina/elenaistomina2001/elenaistomina200100067/140259490-lave-vaisselle-ouvert-avec-vaisselle-propre-mat%C3%A9riel-de-cuisine-ic%C3%B4ne-illustration-vectorielle.jpg', 'Paris', '2024-09-27 14:00:00', 3);
 
 
 

@@ -1,6 +1,6 @@
 import express from "express";
 import "reflect-metadata";
-import { In } from 'typeorm';
+import { In, Like } from 'typeorm';
 import { dataSource } from "./config/db";
 import { Ad } from "./entities/Ad";
 import { Category } from "./entities/Category";
@@ -19,11 +19,17 @@ const port = 4000;
 app.get("/ads", async (req, res) => {
     const categoryId = req.query.categoryId;
     const tagId = req.query.tagId;
+    const needle = req.query.needle;
     let whereClause = {}
     if (categoryId) {
         whereClause = {
 			category: { id: categoryId },
 		};
+    }
+    if (needle) {
+        whereClause = { 
+            title: Like(`%${needle}%`) 
+        }
     }
    try {
        const ad = await Ad.find({
@@ -104,7 +110,6 @@ const requestParamsFromUrl = async (params: Params, ad: Ad): Promise<void> => {
     ad.createdAt = params.createdAt;
     ad.picture = params.picture;
     ad.location = params.location;
-    console.log(params)
 
     if (params.categoryId) ad.category = params.categoryId;
 
@@ -124,7 +129,6 @@ app.post("/ads", async (req, res) => {
         const ads = new Ad();
 
         requestParamsFromUrl(req.body, ads)
-        console.log(req.body)
         return res.status(201).send('Ad added');
 
     } catch (err) {
@@ -317,7 +321,6 @@ app.put("/tags/:id", async (req, res) => {
 // DELETE
 app.delete("/tags/:id", async (req, res) => {
 	const id = parseInt(req.params.id)
-    console.log(id)
     try {
         const tag = await Tag.findOneBy({ id })
         if (!tag) return res.status(404).send('Tag not found');

@@ -29,11 +29,6 @@ h1 {
   gap: 10px;
   color: #ffa41b;
 }
-
-.categorie-container {
-  display: flex;
-  justify-content:space-around
-}
  
 .categories-navigation {
   font-size: 20px;
@@ -120,9 +115,10 @@ textarea {
 }
  
 .text-field-with-button {
+  margin: 10px;
   display: flex;
-  flex-grow: 1;
-  justify-content: center;
+  flex-grow: 0.3;
+  justify-content: end;
   gap: 4px;
 }
  
