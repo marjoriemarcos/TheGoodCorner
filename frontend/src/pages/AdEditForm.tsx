@@ -1,36 +1,49 @@
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
-import category from '../types/Category';
-import tag from '../types/Tag';
 import Select from 'react-select';
 import { useNavigate, useParams } from "react-router-dom";
-import Ad from "../types/Ad";
 
 const AdEditForm = () => {
     const { adId } = useParams();
-    console.log('adId', adId)
     const navigate = useNavigate()
-    const [categories, setCategories] = useState<category[]>([]);
-    const [tags, steTags] = useState<tag[]>([]);
-    const [ad, setAd] = useState<Ad>();
+    const [categories, setCategories] = useState([]);
+    const [tags, steTags] = useState([]);
+    const [ad, setAd] = useState<AdEditionFormType>();
+
+    type ApiResult = {
+        id:number,
+        name:string
+    }
+
+    type AdEditionFormType={
+        id:number,
+        title:string,
+        picture:string,
+        price:number,
+        description:string,
+        owner:string,
+        createdAt:string,
+        location:string,
+        category:ApiResult,
+        tags:ApiResult[]
+    }
 
     useEffect(() => {
         const fetchAd = async () => {
-            const {data} = await axios.get<Ad>(`http://localhost:4000/ads/${adId}`);
+            const {data} = await axios.get<AdEditionFormType>(`http://localhost:4000/ads/${adId}`);
             setAd(data)
-            console.log('data' ,data)
+            console.log('ads' ,data)
         };
         const fetchCategories = async () => {
-            const {data} = await axios.get<category[]>('http://localhost:4000/categories');
+            let {data} = await axios.get('http://localhost:4000/categories');
+            data = data.map((cat: ApiResult) => ({value:cat.id, label:cat.name}))
+            console.log('dataCat', data)
             setCategories(data)
         };
         const fetchTags = async () => {
             let {data} = await axios.get('http://localhost:4000/tags');
-            type apiTags = {
-                id: number;
-                name: string;
-            }
-            data = data.map((tag: apiTags) => ({value:tag.id, label:tag.name}))
+            data = data.map((tag: ApiResult) => ({value:tag.id, label:tag.name}))
+            console.log('dataTag', data)
             steTags(data)
         };
         fetchCategories();
@@ -52,7 +65,8 @@ const AdEditForm = () => {
         navigate("/")
        
        }
-
+       console.log('ad?.category.id', ad?.category.id)
+       console.log('ad?.category.name', ad?.category.name)
     return (
         <div className="form-container">
             <form onSubmit={hSubmit}>
@@ -75,11 +89,12 @@ const AdEditForm = () => {
                 <input className="text-field" type="number" name='price' defaultValue={ad?.price} />
 
                 <label>Categorie :</label>
-                <select className="text-field" name="categoryId">
-                    {categories.map((cat) => 
-                        <option value={cat.id} key={cat.id}>{cat.name}</option>        
-                    )}
-                </select>
+                <Select 
+                    name="categoryId"
+                    options={categories}
+                    className="basic-multi-select"
+                   defaultValue={{value:ad?.category.id, label:ad?.category.name}}
+                />
 
                 <label>Tags :</label>
                 <Select 
@@ -88,10 +103,11 @@ const AdEditForm = () => {
                     options={tags}
                     className="basic-multi-select"
                     delimiter=","
+                    defaultValue={ ad?.tags.map((tag: ApiResult) => ({value:tag.id, label:tag.name}))}
                 />
                
                 <label>Date :</label>
-                <input className="text-field" type="week" name='createdAt' />
+                <input className="text-field" type="date" name='createdAt' defaultValue={ad?.createdAt} />
 
                 <button className="button">Submit</button>
             </form>

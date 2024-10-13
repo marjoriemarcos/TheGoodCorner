@@ -79,7 +79,7 @@ const AdCreatForm = () => {
                 />
                
                 <label>Date :</label>
-                <input className="text-field" type="week" name='createdAt' />
+                <input className="text-field" type="date" name='createdAt' />
 
                 <button className="button">Submit</button>
             </form>

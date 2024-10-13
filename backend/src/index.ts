@@ -97,7 +97,7 @@ interface Params {
     createdAt: string;
     picture: string;
     location: string;
-    categoryId: Category;
+    categoryId: number;
     tags: Tag[];
 }
 
@@ -111,7 +111,9 @@ const requestParamsFromUrl = async (params: Params, ad: Ad): Promise<void> => {
     ad.picture = params.picture;
     ad.location = params.location;
 
-    if (params.categoryId) ad.category = params.categoryId;
+    const category = await Category.findOneBy({ id: params.categoryId });
+    if (category) ad.category = category;
+
 
     const tags = await Tag.find({
         where: {
