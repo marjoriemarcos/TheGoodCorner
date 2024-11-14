@@ -10,19 +10,22 @@ import { CategoryResolver } from "./resolvers/CategoryResolver";
 
 const port = 4000;
 
-await dataSource.initialize();
 
-const schema = await buildSchema({
-    resolvers: [AdResolver, TagResolver, CategoryResolver],
-  });
+
+async function start() {
+  //Mettre tout le code ici
+  await dataSource.initialize();
   
-  const server = new ApolloServer({ schema });
-  
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-  });
-  
-  console.log(`🚀  Server ready at: ${url}`);
-
-
-
+  const schema = await buildSchema({
+      resolvers: [AdResolver, TagResolver, CategoryResolver],
+    });
+    
+    const server = new ApolloServer({ schema });
+    
+    const { url } = await startStandaloneServer(server, {
+      listen: { port: 4000 },
+    });
+    
+    console.log(`🚀  Server ready at: ${url}`);
+    }
+    start()
