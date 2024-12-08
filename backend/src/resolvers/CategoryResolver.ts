@@ -1,38 +1,50 @@
-import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Field, ID, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Category } from "../entities/Category";
+import { Ad } from "../entities/Ad";
 
 @InputType()
 export class CategoryInput {
-  @Field()
-  id!: string;
 
   @Field()
   name!: string;
-  
-  @Field()
-  createdAt!: string;
+
+  @Field(() => ID)
+  ads!: Ad;
 
 }
 
 @Resolver(Category)
 export class CategoryResolver {
   @Query(() => [Category])
-  async getTags() {
-    const categories = await Category.find();
+  async getCategories() {
+    const categories = await Category.find({ relations: ["ads"] });
     return categories
   }
 
   @Query(() => [Category])
-  async getTagById(@Arg("id") id: string) {
+  async getCategoryById(@Arg("id") id: string) {
     const category = await Category.findOneByOrFail({id})
     return category
   }
 
   @Mutation(() => Category)
-  async addTag(@Arg("data") { name, createdAt }: CategoryInput) {
+  async createdCategory(@Arg("data") { name }: CategoryInput) {
     const category = new Category()
     category.name=name
-    category.createdAt=createdAt
+    await category.save()
+    return category;
+  }
+
+  @Mutation(() => Boolean)
+  async deleteCategoryById(@Arg("id") id: string) {
+    return (await Category.delete({id})).affected
+  }
+
+  @Mutation(() => Category)
+  async replaceById(@Arg("adId") id: string, @Arg("data") data: CategoryInput ) {
+    let category = await Category.findOneByOrFail({id})
+    category = Object.assign(category, data)
+
     await category.save()
     return category;
   }

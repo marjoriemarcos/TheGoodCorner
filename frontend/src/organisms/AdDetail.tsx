@@ -1,4 +1,3 @@
-
 export type AdDetailProps = {
 	title: string,
 	description: string,
@@ -10,7 +9,7 @@ export type AdDetailProps = {
 }
 
 export default function AdDetail(props:AdDetailProps) {
-	console.log('props', props)
+
 	return (
 		<>
 		<main className="main-content">

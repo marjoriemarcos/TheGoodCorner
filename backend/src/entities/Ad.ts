@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable, BeforeInsert } from "typeorm";
 import "reflect-metadata";
 import { Category } from "./Category";
 import { Tag } from "./Tag";
@@ -19,7 +19,6 @@ import { Field, ObjectType } from "type-graphql";
     @Field()
     description!: string;
     
-  
     @Column()
     @Field()
     owner!: string;
@@ -38,12 +37,14 @@ import { Field, ObjectType } from "type-graphql";
 
     @Column()
     @Field()
-    createdAt!: string;
+    createdAt!: Date;
 
+    @Field(() => Category)
     @ManyToOne(() => Category, (category) => category.ads
     )
     category!: Category;
 
+    @Field(() => [Tag])
     @ManyToMany(
       () => Tag, 
       (tag) => tag.ads
@@ -51,10 +52,13 @@ import { Field, ObjectType } from "type-graphql";
     @JoinTable()
     tags!: Tag[];
 
+    @BeforeInsert()
+    updateDates() {
+      this.createdAt = new Date();
+    }
+
   }
   
-
-  // '!' veut dire champ obligatoire
   
   
   

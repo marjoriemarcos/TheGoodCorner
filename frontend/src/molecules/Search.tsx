@@ -1,37 +1,36 @@
-import { FormEvent, useEffect, useState } from "react"
-import axios from "axios";
-import { AdCardProps } from "./AdCard";
+import { FormEvent, useState } from "react"
 import AdGallery from "../organisms/AdGallery";
+import { Ad, useGetAdsQuery } from "../libs/graphql/generated/graphql-types";
 
 
 export function Search () {
-    const [needle, setNeedle] = useState('');
-    const [ads, setAds] = useState<AdCardProps[]>([]);
+    const [needle, setNeedle] = useState('')
+    const { loading, error, data, refetch } = useGetAdsQuery({
+        variables: { needle: '' },
+        skip: !needle
+    });
 
     const hSubmit = (e: FormEvent) => {
         e.preventDefault()
     }
 
-    const hChange=async (evt:FormEvent<HTMLInputElement>) => {
-            setNeedle(evt.currentTarget.value)
-
-            if (evt.currentTarget.value) {
-                const {data} = await axios.get<AdCardProps[]>(`http://localhost:4000/ads?needle=${evt.currentTarget.value}`);
-                setAds(data)
-            }
-            if (!evt.currentTarget.value) {
-                setAds([])
-            }
-
+    const handleChange = async (evt: FormEvent<HTMLInputElement>) => {
+        const searchValue = evt.currentTarget.value;
+        setNeedle(searchValue);
+        if (searchValue) {
+            await refetch({ needle: searchValue });
+        }
     }
-    useEffect(() => {
 
-    }, [ads, needle])
-
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :</p>;
     return (
         <>
             <form className="text-field-with-button" onSubmit={hSubmit}>
-            <input className="text-field main-search-field" type="search" onChange={hChange} value={needle} />
+            <input className="text-field main-search-field" type="search" 
+                onChange={handleChange}
+                value={needle} 
+            />
             <button className="button button-primary">
                 <svg
                 aria-hidden="true"
@@ -51,7 +50,10 @@ export function Search () {
                 </svg>
             </button>
             </form>
-            { needle ? <AdGallery title={`Les annonces de la recherche "${needle}"`} ads={ads} /> : ' ' }
+            { needle && data?.getAds ? 
+                <AdGallery title={`Les annonces de la recherche "${needle}"`} ads={data.getAds as Ad[]} /> 
+                : null 
+            }
         </>
     )
 }

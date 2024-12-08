@@ -1,24 +1,14 @@
-import axios from "axios";
-import {AdCardProps} from '../molecules/AdCard';
-import { useEffect, useState } from "react";
 import AdGallery from "../organisms/AdGallery";
+import { Ad, useGetAdsQuery } from "../libs/graphql/generated/graphql-types";
 
 function HomePage () {
 
-    const [ads, setAds] = useState<AdCardProps[]>([]);
-  
-  
-    const fetchData = async () => {
-      const { data } = await axios.get<AdCardProps[]>("http://localhost:4000/ads")
-      setAds( data );
-   }
-    useEffect(() => {
-      fetchData()
-    }, [ads])
+const { loading, error, data } = useGetAdsQuery();
 
-    return <AdGallery title="Les annonces les plus récentes" ads={ads}/>
-
-
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :</p>;
+    if (!data) return <p>Somethin wrong...</p>;
+    return <AdGallery title="Les annonces les plus récentes" ads={data.getAds as Ad[]}/>
 }
 
 export default HomePage;

@@ -1,10 +1,11 @@
-import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Field, ID, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Ad } from "../entities/Ad";
+import { Category } from "../entities/Category";
+import { Tag } from "../entities/Tag";
+import { In, Like } from "typeorm";
 
 @InputType()
 export class AdInput {
-  @Field()
-  id!: string;
 
   @Field()
   title!: string;
@@ -24,35 +25,74 @@ export class AdInput {
   @Field()
   location!: string;
 
-  @Field()
-  createdAt!: string;
+  @Field(() => ID)
+  category!: Category;
+
+  @Field(() => [ID])
+  tags!: Tag[];
+  
 }
 
 @Resolver(Ad)
 export class AdResolver {
+
   @Query(() => [Ad])
-  async getAds() {
-    const ads = await Ad.find();
+  async getAds(@Arg("needle", { nullable: true }) needle?: string) {
+    let whereClause = {}
+    if (needle) {
+        whereClause = { 
+            title: Like(`%${needle}%`) 
+          }
+        }
+    const ads = await Ad.find({ 
+      where: whereClause,
+      relations: ["category", "tags"] });
     return ads
   }
 
-  @Query(() => [Ad])
+  @Query(() => Ad)
   async getAdById(@Arg("id") id: string) {
-    const ad = await Ad.findOneByOrFail({id})
+    const ad = await Ad.findOneOrFail({
+      where: {id},
+      relations: ["category", "tags"]
+    })
+    return ad
+  }
+
+  @Query(() => [Ad])
+  async getAdByCategoryId (@Arg("id") id: string) {
+    const ad = await Ad.find({
+      where: {category: {id}},
+      relations: ["category", "tags"]
+    })
     return ad
   }
 
   @Mutation(() => Ad)
-  async addAd(@Arg("data") { title, description, owner, price, picture, location, createdAt }: AdInput) {
-    const ad = new Ad()
-    ad.title=title
-    ad.description=description
-    ad.owner=owner
-    ad.price=price
-    ad.picture=picture
-    ad.location=location
-    ad.createdAt=createdAt
+  async createdAd(@Arg("data") data: AdInput) {
+    let ad = new Ad()
+    ad = Object.assign(ad, data);
+    const tags = await Tag.findBy({id: In(data.tags)  })
+    ad.tags = tags;
+    
     await ad.save()
     return ad;
   }
+
+  @Mutation(() => Boolean)
+  async deleteAdById(@Arg("id") id: string) {
+    return (await Ad.delete({id})).affected
+  }
+
+  @Mutation(() => Ad)
+  async replaceAdById(@Arg("adId") id: string, @Arg("data") data: AdInput ) {
+    let ad = await Ad.findOneByOrFail({id})
+    ad = Object.assign(ad, data)
+    const tags = await Tag.findBy({id: In(data.tags)  })
+    ad.tags = tags;
+
+    await ad.save()
+    return ad;
+  }
+
 }

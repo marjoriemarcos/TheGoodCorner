@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
-import axios from 'axios';
 import AdCategory from '../molecules/AdCategory';
 import { Link } from "react-router-dom";
-import Category from "../types/Category";
-import { Search } from "../molecules/Search";
+import { Search } from '../molecules/Search';
+import { useGetCategoriesQuery } from '../libs/graphql/generated/graphql-types';
 
 function Header() {
+  const { loading, error, data } = useGetCategoriesQuery();
 
-  const [categories, setCategories] = useState<Category[]>([]);
-
-
-  const fetchData = async () => {
-    const { data } = await axios.get<Category[]>("http://localhost:4000/categories")
-    setCategories( data );
- }
-  useEffect(() => {
-    fetchData()
-  }, [])
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :</p>;
 
   return (
       <>
@@ -34,11 +25,11 @@ function Header() {
             </Link>
           </div>
           <div className="d-flex justify-content-between">   
-            {categories.map((cat) => {
+            {data?.getCategories.map((cat) => {
               return <div key={cat.id}>
                   <AdCategory
                     name={cat.name}
-                    id={cat.id}
+                    id={Number(cat.id)}
                   />
                 </div>
                 })

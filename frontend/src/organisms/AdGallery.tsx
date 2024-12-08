@@ -1,11 +1,12 @@
-import AdCard, {AdCardProps}  from '../molecules/AdCard';
+import { Ad } from '../libs/graphql/generated/graphql-types';
+import AdCard from '../molecules/AdCard';
 import AdPrice from '../molecules/AdPrice';
-import {useState} from 'react';
+import { useState } from 'react';
 
 
 export type AdGalleryProps = {
     title: string;
-    ads: AdCardProps[];
+    ads: Ad[];
 };
 
 function AdGallery(props: AdGalleryProps) {
@@ -19,17 +20,8 @@ function AdGallery(props: AdGalleryProps) {
                   {props.ads.map((ad) => (
                     <div className="container w-25 h-25 bg-light-subtle rounded p-4 m-3" key={ad.id}>
                       <div key={ad.id}>
-                          <AdCard 
-                            key={ad.id}
-                            picture={ad.picture}
-                            price={ad.price}
-                            title={ad.title}
-                            id={ad.id}
-                            location={ad.location}
-                            description={ad.description}
-                            owner={ad.owner}
-                            createdAt={ad.createdAt}
-                            category={ad.category}
+                          <AdCard
+                            key={ad.id} {...ad}
                           />
                           <AdPrice
                             price={ad.price}

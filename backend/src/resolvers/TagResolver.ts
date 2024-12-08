@@ -1,16 +1,15 @@
-import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Field, ID, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Tag } from "../entities/Tag";
+import { Ad } from "../entities/Ad";
 
 @InputType()
 export class TagInput {
-  @Field()
-  id!: string;
 
   @Field()
   name!: string;
-  
-  @Field()
-  createdAt!: string;
+
+  @Field(() => ID)
+  ads!: Ad;
 
 }
 
@@ -18,7 +17,7 @@ export class TagInput {
 export class TagResolver {
   @Query(() => [Tag])
   async getTags() {
-    const tags = await Tag.find();
+    const tags = await Tag.find({ relations: ["ads"] });
     return tags
   }
 
@@ -29,10 +28,23 @@ export class TagResolver {
   }
 
   @Mutation(() => Tag)
-  async addTag(@Arg("data") { name, createdAt }: TagInput) {
+  async createdTag(@Arg("data") { name }: TagInput) {
     const tag = new Tag()
     tag.name=name
-    tag.createdAt=createdAt
+    await tag.save()
+    return tag;
+  }
+
+  @Mutation(() => Boolean)
+  async deleteTagById(@Arg("id") id: string) {
+    return (await Tag.delete({id})).affected
+  }
+
+  @Mutation(() => Tag)
+  async replaceTagById(@Arg("adId") id: string, @Arg("data") data: TagInput ) {
+    let tag = await Tag.findOneByOrFail({id})
+    tag = Object.assign(tag, data)
+
     await tag.save()
     return tag;
   }

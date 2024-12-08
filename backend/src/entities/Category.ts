@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany, BeforeInsert } from "typeorm";
 import { Ad } from "./Ad";
 import { Field, ObjectType } from "type-graphql";
   @Entity()
@@ -14,11 +14,17 @@ import { Field, ObjectType } from "type-graphql";
 
     @Field()
     @Column()
-    createdAt!: string;
+    createdAt!: Date;
 
+    @Field(() => [Ad])
     @OneToMany(() => Ad, (ad) => ad.category
     )
     ads!: Ad[];
+
+    @BeforeInsert()
+    updateDates() {
+      this.createdAt = new Date();
+    }
   
   }
   

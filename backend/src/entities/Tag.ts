@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToMany, BeforeInsert } from "typeorm";
 import { Ad } from "./Ad";
 import { Field, ObjectType } from "type-graphql";
   
@@ -16,18 +16,20 @@ import { Field, ObjectType } from "type-graphql";
 
     @Field()
     @Column()
-    createdAt!: string;
+    createdAt!: Date;
 
+    @Field( () => [Ad])
     @ManyToMany(
       () => Ad, 
       (ad) => ad.tags
     )
     ads!: Ad[];
 
+    @BeforeInsert()
+    updateDates() {
+      this.createdAt = new Date();
+    }
   }
-  
-
-  // '!' veut dire champ obligatoire
   
   
   

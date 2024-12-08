@@ -1,24 +1,27 @@
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Category from '../types/Category';
+import { Ad, useDeleteAdMutation, useGetAdsQuery } from '../libs/graphql/generated/graphql-types';
+import { GET_ADS } from '../libs/api';
 
-export type AdCardProps = {
-  id: number;
-  title: string;
-  description: string;
-  picture: string;
-  owner: string;
-  price: number;
-  location: string;
-  createdAt: string;
-  category: Category;
-};
+function AdCard( props: Ad ) {
 
+  const { loading, error } = useGetAdsQuery();
+  const [deleteAd] = useDeleteAdMutation({
+    refetchQueries: [
+        GET_ADS, // DocumentNode object parsed with gql
+        'GetAds'
+      ],
+});
 
-function AdCard( props: AdCardProps ) {
-  const hRemove = async (id: number) => {
-    await axios.delete(`http://localhost:4000/ads/${id}`)
-   }
+  const handleDelete = async (adId: string) => {
+    try {
+      await deleteAd({ variables: { deleteAdByIdId: adId } });
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+    }
+  };
+
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>Erreur : {error.message}</p>;
 
   return (
       <>
@@ -27,14 +30,16 @@ function AdCard( props: AdCardProps ) {
             <div className="ad-card-text">
                 <div className="ad-card-title">{props.title}</div>
                 <div className="ad-card-price">{props.price} €</div>
-                <div className="ad-card-price">{props.category.name} </div>
+                <div className="ad-card-price">{props.category.name}</div>
             </div>
+                {props.tags.map((tag) => {
+                  return <div className="ad-card-price">{tag.name} </div>
+                })}
             </Link>
-              <button className="btn btn-outline-danger m-1" type="button" onClick={ () => hRemove(props.id)}>Supprimer</button>
+              <button className="btn btn-outline-danger m-1" type="button" onClick={() => handleDelete( props.id.toString() )}>Supprimer</button>
             <Link className="ad-card-link" to={`/ads/edit/${props.id}`}>
                 <button className="btn btn-outline-warning m-1" type="button">Modifer</button>
-            </Link>
-              
+            </Link> 
       </>
   );
 }

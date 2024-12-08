@@ -1,25 +1,22 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import AdDetail, { AdDetailProps } from "../organisms/AdDetail";
+import AdDetail from "../organisms/AdDetail";
+import { useGetAdByIdQuery } from "../libs/graphql/generated/graphql-types";
 
 export default function AdPage() {
 	const { adId } = useParams();
-	const [ad, setAd] = useState<AdDetailProps|null>(null);
 
+	const { loading, error, data } = useGetAdByIdQuery({
+		variables: {getAdByIdId: `${adId}`}
+	});
+	
 
-	const fetchData = async () => {
-	  const { data } = await axios.get<AdDetailProps>(`http://localhost:4000/ads/${adId}`)
-	  setAd( data );
-   }
-   useEffect(() => {
-    fetchData()
-  }, [adId])
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :</p>;
+	if (!data) return <p>Somethin wrong...</p>;
 
-  	if (!ad) return <p>Loading...</p>
 	return (
 		<>
-			<AdDetail {...ad}  />
+			<AdDetail {...data.getAdById}  />
 		</>
 	);
 }
