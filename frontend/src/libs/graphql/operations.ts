@@ -102,6 +102,14 @@ mutation CreatedAd($data: AdInput!) {
 }
 `;
 
+export const CREATED_TAG = gql `
+mutation createdTag($data: TagInput!) {
+  createdTag(data: $data) {
+    name
+  }
+}
+`;
+
 export const REPLACE_AD_BY_ID = gql `
 mutation ReplaceAd($data: AdInput!, $adId: String!) {
   replaceAdById(data: $data, adId: $adId) {
@@ -109,5 +117,8 @@ mutation ReplaceAd($data: AdInput!, $adId: String!) {
   }
 }
 `;
+
+
+
 
 

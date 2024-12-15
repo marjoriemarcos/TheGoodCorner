@@ -21,6 +21,16 @@ h1 {
   padding: 10px;
   background-color: white;
 }
+
+.link-header {
+  display: flex;
+  justify-content: space-between;
+  width: 15%;
+}
+
+.link-header > span {
+  margin: 0 10px;
+}
  
 .main-menu {
   display: flex;
@@ -151,8 +161,6 @@ textarea {
   gap: 5%;
   flex-wrap: wrap;
 }
-
- 
 
 .ad-card-link {
   text-decoration: inherit;

@@ -11,12 +11,12 @@ export type AdDetailProps = {
 export default function AdDetail(props:AdDetailProps) {
 
 	return (
-		<>
+		<div>
 		<main className="main-content">
 		<h2 className="ad-details-title">{props.title}</h2>
 			<section className="ad-details">
 				<div className="ad-details-image-container">
-				<img className="ad-details-image" src={props.picture} />
+				<img className="ad-details-image" src={props.picture} alt={props.title}/>
 				</div>
 				<div className="ad-details-info">
 				<div className="ad-details-price">{props.price} €</div>
@@ -47,6 +47,6 @@ export default function AdDetail(props:AdDetailProps) {
 				</div>
 			</section>
 		</main>
-		</>
+		</div>
 	);
 }

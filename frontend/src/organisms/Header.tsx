@@ -2,6 +2,7 @@ import AdCategory from '../molecules/AdCategory';
 import { Link } from "react-router-dom";
 import { Search } from '../molecules/Search';
 import { useGetCategoriesQuery } from '../libs/graphql/generated/graphql-types';
+import DropdownMenu from '../molecules/DropDownMenu';
 
 function Header() {
   const { loading, error, data } = useGetCategoriesQuery();
@@ -19,10 +20,16 @@ function Header() {
                 <span className="desktop-long-label">THE GOOD CORNER</span>
               </Link>
             </h1>
+            <div className='link-header'>
             <Link to="/ads/new" className="button link-button">
               <span className="mobile-short-label">Publier</span>
               <span className="desktop-long-label">Publier une annonce</span>
             </Link>
+            <Link to="/tags/new" className="button link-button">
+              <span className="mobile-short-label">Publier</span>
+              <span className="desktop-long-label">Ajouter un tag</span>
+            </Link>
+            </div>
           </div>
           <div className="d-flex justify-content-between">   
             {data?.getCategories.map((cat) => {
@@ -35,6 +42,7 @@ function Header() {
                 })
               } 
           </div>
+          <DropdownMenu></DropdownMenu>
         </header>
           <Search /> 
       </>

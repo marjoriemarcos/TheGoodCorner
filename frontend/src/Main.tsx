@@ -10,6 +10,7 @@ import AdPage from './pages/AdPage.tsx';
 import AdSearch from './pages/AdSearch.tsx';
 import AdEditForm from './pages/AdEditForm.tsx';
 import { client } from './libs/api.ts';
+import TagCreatForm from './pages/TagCreatForm.tsx';
 
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
 			{
 				path: "/categories/:categoryId",
 				element: <AdSearch />,
+			},
+			{
+				path: "/tags/new",
+				element: <TagCreatForm />,
 			},
 			{
 				path: "/ads/new",

@@ -15,8 +15,8 @@ export default function AdPage() {
 	if (!data) return <p>Somethin wrong...</p>;
 
 	return (
-		<>
+		<div>
 			<AdDetail {...data.getAdById}  />
-		</>
+		</div>
 	);
 }

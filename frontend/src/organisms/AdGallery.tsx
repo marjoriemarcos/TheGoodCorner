@@ -12,14 +12,13 @@ export type AdGalleryProps = {
 function AdGallery(props: AdGalleryProps) {
   const [total, setTotal] = useState(0);
   return (
-      <>
+      <div>
         <main className="w-100 flex">
             <h2 className='m-3'>{props.title}</h2>
             <p className='m-3'>Prix total : {total}  euros </p>
             <section className="w-100 d-flex flex-wrap flex-row justify-content-center">
                   {props.ads.map((ad) => (
                     <div className="container w-25 h-25 bg-light-subtle rounded p-4 m-3" key={ad.id}>
-                      <div key={ad.id}>
                           <AdCard
                             key={ad.id} {...ad}
                           />
@@ -28,12 +27,11 @@ function AdGallery(props: AdGalleryProps) {
                             total={total}
                             setTotal={setTotal}
                           />
-                      </div>
-                  </div>
+                    </div>
                   ))}
             </section>
           </main>
-      </>
+      </div>
     );
 }  
 

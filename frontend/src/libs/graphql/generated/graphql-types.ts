@@ -107,14 +107,14 @@ export type MutationReplaceAdByIdArgs = {
 
 
 export type MutationReplaceByIdArgs = {
-  adId: Scalars['String']['input'];
   data: CategoryInput;
+  id: Scalars['String']['input'];
 };
 
 
 export type MutationReplaceTagByIdArgs = {
-  adId: Scalars['String']['input'];
   data: TagInput;
+  id: Scalars['String']['input'];
 };
 
 export type Query = {
@@ -162,7 +162,7 @@ export type Tag = {
 };
 
 export type TagInput = {
-  ads: Scalars['ID']['input'];
+  ads?: InputMaybe<Scalars['ID']['input']>;
   name: Scalars['String']['input'];
 };
 
@@ -210,6 +210,13 @@ export type CreatedAdMutationVariables = Exact<{
 
 
 export type CreatedAdMutation = { __typename?: 'Mutation', createdAd: { __typename?: 'Ad', id: string } };
+
+export type CreatedTagMutationVariables = Exact<{
+  data: TagInput;
+}>;
+
+
+export type CreatedTagMutation = { __typename?: 'Mutation', createdTag: { __typename?: 'Tag', name: string } };
 
 export type ReplaceAdMutationVariables = Exact<{
   data: AdInput;
@@ -530,6 +537,39 @@ export function useCreatedAdMutation(baseOptions?: Apollo.MutationHookOptions<Cr
 export type CreatedAdMutationHookResult = ReturnType<typeof useCreatedAdMutation>;
 export type CreatedAdMutationResult = Apollo.MutationResult<CreatedAdMutation>;
 export type CreatedAdMutationOptions = Apollo.BaseMutationOptions<CreatedAdMutation, CreatedAdMutationVariables>;
+export const CreatedTagDocument = gql`
+    mutation createdTag($data: TagInput!) {
+  createdTag(data: $data) {
+    name
+  }
+}
+    `;
+export type CreatedTagMutationFn = Apollo.MutationFunction<CreatedTagMutation, CreatedTagMutationVariables>;
+
+/**
+ * __useCreatedTagMutation__
+ *
+ * To run a mutation, you first call `useCreatedTagMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatedTagMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createdTagMutation, { data, loading, error }] = useCreatedTagMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreatedTagMutation(baseOptions?: Apollo.MutationHookOptions<CreatedTagMutation, CreatedTagMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatedTagMutation, CreatedTagMutationVariables>(CreatedTagDocument, options);
+      }
+export type CreatedTagMutationHookResult = ReturnType<typeof useCreatedTagMutation>;
+export type CreatedTagMutationResult = Apollo.MutationResult<CreatedTagMutation>;
+export type CreatedTagMutationOptions = Apollo.BaseMutationOptions<CreatedTagMutation, CreatedTagMutationVariables>;
 export const ReplaceAdDocument = gql`
     mutation ReplaceAd($data: AdInput!, $adId: String!) {
   replaceAdById(data: $data, adId: $adId) {
