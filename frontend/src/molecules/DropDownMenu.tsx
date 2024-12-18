@@ -21,6 +21,7 @@ const DropdownMenu = () => {
 			</Dropdown.Trigger>
 
 			<Dropdown.Portal>
+
 				<Dropdown.Content className="DropdownMenuContent" sideOffset={5}>
 					{data?.getTags.map((tag) => (
 						<Dropdown.Item key={tag.id} className="DropdownMenuItem">

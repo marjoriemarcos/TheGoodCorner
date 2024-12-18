@@ -41,7 +41,6 @@ const AdEditForm = () => {
     if (loading || loadingAd || loadingSub) return <p>Loading...</p>;
     if (error || errorAd || errorSub) return <p>Error :</p>;
     if (!data) return <p>Something wrong...</p>;
-
     return (
         <div className="form-container">
             <form onSubmit={hSubmit}>
@@ -88,5 +87,6 @@ const AdEditForm = () => {
         </div>
     );
 };
+    
 
 export default AdEditForm;

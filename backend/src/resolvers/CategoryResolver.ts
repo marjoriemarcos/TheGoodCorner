@@ -41,7 +41,7 @@ export class CategoryResolver {
   }
 
   @Mutation(() => Category)
-  async replaceById(@Arg("adId") id: string, @Arg("data") data: CategoryInput ) {
+  async replaceById(@Arg("id") id: string, @Arg("data") data: CategoryInput ) {
     let category = await Category.findOneByOrFail({id})
     category = Object.assign(category, data)
 

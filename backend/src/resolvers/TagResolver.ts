@@ -8,8 +8,8 @@ export class TagInput {
   @Field()
   name!: string;
 
-  @Field(() => ID)
-  ads!: Ad;
+  @Field(() => ID, {nullable: true})
+  ads?: Ad;
 
 }
 
@@ -28,9 +28,9 @@ export class TagResolver {
   }
 
   @Mutation(() => Tag)
-  async createdTag(@Arg("data") { name }: TagInput) {
-    const tag = new Tag()
-    tag.name=name
+  async createdTag(@Arg("data") data : TagInput) {
+    let tag = new Tag()
+    tag = Object.assign(tag, data)
     await tag.save()
     return tag;
   }
@@ -41,7 +41,7 @@ export class TagResolver {
   }
 
   @Mutation(() => Tag)
-  async replaceTagById(@Arg("adId") id: string, @Arg("data") data: TagInput ) {
+  async replaceTagById(@Arg("id") id: string, @Arg("data") data: TagInput ) {
     let tag = await Tag.findOneByOrFail({id})
     tag = Object.assign(tag, data)
 

@@ -24,6 +24,7 @@ export function Search () {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :</p>;
+
     return (
         <>
             <form className="text-field-with-button" onSubmit={hSubmit}>
