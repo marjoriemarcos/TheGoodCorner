@@ -1,4 +1,3 @@
-import React from "react";
 import * as Dropdown from "@radix-ui/react-dropdown-menu";
 import {
 	HamburgerMenuIcon,
@@ -19,9 +18,7 @@ const DropdownMenu = () => {
 					<HamburgerMenuIcon />
 				</button>
 			</Dropdown.Trigger>
-
 			<Dropdown.Portal>
-
 				<Dropdown.Content className="DropdownMenuContent" sideOffset={5}>
 					{data?.getTags.map((tag) => (
 						<Dropdown.Item key={tag.id} className="DropdownMenuItem">

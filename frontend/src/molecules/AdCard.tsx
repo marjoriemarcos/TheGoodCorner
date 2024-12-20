@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Ad, useDeleteAdMutation, useGetAdsQuery } from '../libs/graphql/generated/graphql-types';
-import { GET_ADS } from '../libs/api';
+import { GET_ADS } from "../libs/graphql/operations";;
 
 function AdCard( props: Ad ) {
 

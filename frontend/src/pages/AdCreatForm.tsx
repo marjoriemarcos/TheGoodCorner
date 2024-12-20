@@ -2,15 +2,13 @@ import { FormEvent, useEffect } from "react";
 import Select from 'react-select';
 import { useNavigate } from "react-router-dom";
 import { AdInput, useCreatedAdMutation, useGetTagAndCategoriesQuery } from "../libs/graphql/generated/graphql-types";
-import { GET_ADS } from "../libs/api";
+import { GET_ADS } from "../libs/graphql/operations";
 
 const AdCreatForm = () => {
     const { loading, error, data } = useGetTagAndCategoriesQuery();
-    const [createdAd, { loading: loadingSub, error: errorSub, data: dataSub }] = useCreatedAdMutation({
-        refetchQueries: [
-            GET_ADS, // DocumentNode object parsed with gql
-            'GetAds'
-          ],
+    const [createdAd, { loading: loadingSub, error: errorSub, data: dataSub }] = useCreatedAdMutation(
+        {
+        refetchQueries: [GET_ADS, 'GetAds'],
     });
     const navigate = useNavigate()
     
@@ -19,21 +17,18 @@ const AdCreatForm = () => {
         const form = e.target;
         const formData = new FormData(form as HTMLFormElement);
         const formJson = Object.fromEntries(formData.entries());
-        console.log('formJson', formJson)
         const formattedData = {
             ...formJson,
             price: parseFloat(formData.get("price") as string),
             tags: formJson.tags ? formJson.tags.toString().split(',') : [],
         }
-        console.log('formattedData', formattedData)
         createdAd({ 
             variables: {data: formattedData as AdInput},
             }); 
        }
-
     useEffect(() => {
 		if (!dataSub) return;
-		navigate(`/ads/${dataSub.createdAd.id}`);
+		navigate(`/`);
 
 	}, [dataSub, navigate]);
 

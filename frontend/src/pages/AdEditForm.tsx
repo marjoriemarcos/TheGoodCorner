@@ -2,7 +2,7 @@ import { FormEvent } from "react";
 import Select from 'react-select';
 import { useNavigate, useParams } from "react-router-dom";
 import { AdInput, useGetAdByIdQuery, useGetTagAndCategoriesQuery, useReplaceAdMutation } from "../libs/graphql/generated/graphql-types";
-import { REPLACE_AD_BY_ID } from "../libs/api";
+import { REPLACE_AD_BY_ID } from "../libs/graphql/operations";;
 
 const AdEditForm = () => {
     const { adId } = useParams();

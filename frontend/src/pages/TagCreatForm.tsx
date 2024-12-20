@@ -1,9 +1,12 @@
 import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TagInput, useCreatedTagMutation } from "../libs/graphql/generated/graphql-types";
+import { GET_TAGS } from "../libs/graphql/operations";
 
 const TagCreatForm = () => {
-    const [createdTagMutation, { data, loading, error }] = useCreatedTagMutation();
+    const [createdTagMutation, { data, loading, error }] = useCreatedTagMutation({
+        refetchQueries: [{ query: GET_TAGS }]
+})
 
     const navigate = useNavigate()
     
@@ -17,11 +20,13 @@ const TagCreatForm = () => {
             }); 
        }
 
+
     useEffect(() => {
 		if (!data) return;
 		navigate(`/`);
 
 	}, [data, navigate]);
+	console.log("🚀 ~ TagCreatForm ~ data:", data)
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :</p>;

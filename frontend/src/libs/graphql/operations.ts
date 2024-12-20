@@ -31,6 +31,16 @@ query GetCategories {
 }
 `;
 
+export const GET_TAGS = gql`
+query GetTags {
+  getTags {
+    id
+    name
+    createdAt
+  }
+}
+`;
+
 export const GET_ADS_BY_CATEGORY_ID = gql`
 query GetAdByCategoryId($getAdByCategoryIdId: String!) {
   getAdByCategoryId(id: $getAdByCategoryIdId) {
@@ -103,7 +113,7 @@ mutation CreatedAd($data: AdInput!) {
 `;
 
 export const CREATED_TAG = gql `
-mutation createdTag($data: TagInput!) {
+mutation CreatedTag($data: TagInput!) {
   createdTag(data: $data) {
     name
   }
