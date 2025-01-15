@@ -2,28 +2,40 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import express from "express";
 import "reflect-metadata";
+import * as jwt from "jsonwebtoken";
 import { dataSource } from "./config/db";
 import { buildSchema } from "type-graphql";
 import { AdResolver } from "./resolvers/AdResolver";
 import { TagResolver } from "./resolvers/TagResolver";
 import { CategoryResolver } from "./resolvers/CategoryResolver";
+import { UserResolver } from "./resolvers/UserResolver";
+import { authChecker } from "./auth/authChecker";
 
 const port = 4000;
 
-
-
 async function start() {
-  //Mettre tout le code ici
   await dataSource.initialize();
   
   const schema = await buildSchema({
-      resolvers: [AdResolver, TagResolver, CategoryResolver],
+      resolvers: [AdResolver, TagResolver, CategoryResolver, UserResolver, authChecker],
+      authChecker: authChecker
     });
     
     const server = new ApolloServer({ schema });
     
     const { url } = await startStandaloneServer(server, {
-      listen: { port: 4000 },
+      listen: { port: port },
+      context: async ({ req, res }) => {
+        if (!process.env.JWT_SECRET) return { res }
+        const token = req.headers.cookie?.split("token=")[1];
+
+        if (!token) return { res }
+        const tokenContent = jwt.verify(token, process.env.JWT_SECRET)
+        return { 
+          res,
+          user: tokenContent
+        };
+      }
     });
     
     console.log(`🚀  Server ready at: ${url}`);
