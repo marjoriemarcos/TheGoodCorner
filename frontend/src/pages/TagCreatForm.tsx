@@ -36,7 +36,7 @@ const TagCreatForm = () => {
             <form onSubmit={hSubmit}>
                 <label htmlFor="name">Nom du tag</label>
                 <input className="text-field" type="string" name='name' />
-                <button className="button my-2 w-100" disabled={loading}>Submit</button>
+                <button className="button my-2" disabled={loading}>Submit</button>
             </form>
         </div>
     );

@@ -128,7 +128,29 @@ mutation ReplaceAd($data: AdInput!, $adId: String!) {
 }
 `;
 
+export const LOGIN = gql`
+mutation LogIn($data: UserInputBis!) {
+  logIn(data: $data)
+}
+`
 
+export const SINGUP = gql`
+mutation Signup($data: UserInput!) {
+  singUp(data: $data)
+}
+`;
 
+export const GET_ROLES = gql`
+query GetRoles {
+  getRoles {
+    id
+    name
+  }
+}
+`;
 
-
+export const SIGNUP = gql`
+mutation Signup($data: UserInput!) {
+  singUp(data: $data)
+}
+`;

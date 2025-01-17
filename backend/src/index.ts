@@ -10,6 +10,7 @@ import { TagResolver } from "./resolvers/TagResolver";
 import { CategoryResolver } from "./resolvers/CategoryResolver";
 import { UserResolver } from "./resolvers/UserResolver";
 import { authChecker } from "./auth/authChecker";
+import { RolesResolver } from "./resolvers/RolesResolver";
 
 const port = 4000;
 
@@ -17,7 +18,7 @@ async function start() {
   await dataSource.initialize();
   
   const schema = await buildSchema({
-      resolvers: [AdResolver, TagResolver, CategoryResolver, UserResolver, authChecker],
+      resolvers: [AdResolver, TagResolver, CategoryResolver, UserResolver, RolesResolver, authChecker],
       authChecker: authChecker
     });
     

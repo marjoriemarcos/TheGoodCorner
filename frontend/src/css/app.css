@@ -25,18 +25,27 @@ h1 {
 .link-header {
   display: flex;
   justify-content: space-between;
-  width: 15%;
 }
 
 .link-header > span {
   margin: 0 10px;
+}
+
+.mobile-short-label, 
+.mobile-short-logo{
+  display: block;
+}
+
+.desktop-long-label,
+.desktop-long-logo {
+  display: none;
 }
  
 .main-menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 1;
   color: #ffa41b;
 }
  
@@ -65,8 +74,8 @@ h1 {
 }
  
 .button {
-  min-width: 40px;
-  height: 40px;
+  min-width: 35px;
+  height: 30px;
   padding: 8px;
   border-radius: 8px;
   border: 2px solid #ffa41b;
@@ -100,11 +109,6 @@ h1 {
 }
 .form-container > form > select {
   height: 5ch;
-}
-
-.form-container > form > button {
-  height: 5ch;
-  width: 15ch;
 }
 
 .tags {
@@ -141,10 +145,6 @@ textarea {
 
 .link-button {
   text-decoration: none;
-}
- 
-.desktop-long-label {
-  font-size: 20px;
 }
  
 .main-content {
@@ -197,13 +197,23 @@ textarea {
   display: grid;
   gap: 24px;
 }
+
+
  
-@media screen and (min-width: 720px) {
-  .mobile-short-label {
+@media screen and (min-width: 1400px) {
+  .desktop-long-logo {
+    display: initial;
+    font-size: 30px;
+  }
+  
+  .mobile-short-label, 
+  .mobile-short-logo {
     display: none;
   }
   .desktop-long-label {
+    text-align: center;
     display: initial;
+    font-size: 13px;
   }
  
   .categories-navigation {
@@ -221,6 +231,7 @@ textarea {
     grid-template-columns: 1fr 388px;
   }
 }
+
  
 .ad-details-info {
   display: grid;

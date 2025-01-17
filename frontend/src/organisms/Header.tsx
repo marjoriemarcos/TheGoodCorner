@@ -3,9 +3,15 @@ import { Link } from "react-router-dom";
 import { Search } from '../molecules/Search';
 import { useGetCategoriesQuery } from '../libs/graphql/generated/graphql-types';
 import DropdownMenu from '../molecules/DropDownMenu';
+import { useUserStore } from '../libs/zustand/useUserStore';
 
 function Header() {
   const { loading, error, data } = useGetCategoriesQuery();
+  const setUserToStore = useUserStore((state) => state.logout);
+
+  const logout = () => {
+    setUserToStore()
+  }
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :</p>;
@@ -16,8 +22,8 @@ function Header() {
           <div className="main-menu">
             <h1>
               <Link to="/" className="button logo link-button">
-                <span className="mobile-short-label">TGC</span>
-                <span className="desktop-long-label">THE GOOD CORNER</span>
+                <span className="mobile-short-logo">TGC</span>
+                <span className="desktop-long-logo">THE GOOD CORNER</span>
               </Link>
             </h1>
             <div className='link-header'>
@@ -29,6 +35,15 @@ function Header() {
               <span className="mobile-short-label">Publier</span>
               <span className="desktop-long-label">Ajouter un tag</span>
             </Link>
+            <Link to="/login" className="button link-button">
+              <span className="mobile-short-label">Login</span>
+              <span className="desktop-long-label">Se connecter</span>
+            </Link>
+            <Link to="/signup" className="button link-button">
+              <span className="mobile-short-label">Signup</span>
+              <span className="desktop-long-label">Créer un compte</span>
+            </Link>
+            <button className="button" onClick={logout}>Logout</button>
             </div>
           </div>
           <div className="d-flex justify-content-between">   

@@ -1,8 +1,9 @@
-import { Arg, Authorized, Ctx, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Ctx, ID, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 import * as argon from "argon2";
 import * as jwt from "jsonwebtoken";
 import { Response } from "express";
+import { Roles } from "../entities/Roles";
 
 @InputType()
 export class UserInput {
@@ -15,8 +16,8 @@ export class UserInput {
   @Field()
   hashedPassword!: string;
 
-  @Field()
-  roles!: string;
+  @Field(() => ID)
+  roles!: Roles;
 }
 
 @InputType()
@@ -43,7 +44,8 @@ const tokenVerif = (user: User, res: Response, jwtSecret: string) => {
     secure: true,
     sameSite: "strict",
   });
-
+  console.log("🚀 ~ tokenVerif ~ token:", token)
+  
   const profile = {
     mail: user.email,
     name: user.name
@@ -98,14 +100,18 @@ export class UserResolver {
   @Authorized("USER")
   @Query(() => [User])
   async getUsersAsUser() {
-    const users = await User.find();
+    const users = await User.find({
+      relations : [ "roles"]
+    });
     return users
   }
 
   @Authorized("ADMIN")
   @Query(() => [User])
   async getUsersAsAdmin() {
-    const users = await User.find();
+    const users = await User.find({
+      relations : [ "roles"]
+    });
     return users
   }
 }

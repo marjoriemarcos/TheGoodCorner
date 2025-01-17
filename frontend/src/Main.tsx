@@ -11,6 +11,8 @@ import AdSearch from './pages/AdSearch.tsx';
 import AdEditForm from './pages/AdEditForm.tsx';
 import { client } from './libs/api.ts';
 import TagCreatForm from './pages/TagCreatForm.tsx';
+import Login from './pages/Login.tsx';
+import Signup from './pages/Signup.tsx';
 
 
 const router = createBrowserRouter([
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
 			{
 				path: "/ads/edit/:adId",
 				element: <AdEditForm />,
+			},
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/signup",
+				element: <Signup />,
 			},
 		],
 	},

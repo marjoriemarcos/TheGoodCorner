@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
+import { Roles } from "./Roles";
   
 
   @Entity()
@@ -21,9 +22,10 @@ import { Field, ObjectType } from "type-graphql";
     @Column({ nullable: false})
     hashedPassword!: string;
 
-    @Field()
-    @Column({ nullable: false})
-    roles!: string; // ADMIN OU USER 
+    @Field(() => Roles)
+    @ManyToOne(() => Roles, (roles) => roles.users
+    )
+    roles!: Roles;
   }
   
   

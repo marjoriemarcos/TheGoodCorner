@@ -73,7 +73,7 @@ const AdCreatForm = () => {
                     delimiter=","
                 />
 
-                <button className="button my-2 w-100" disabled={loadingSub}>Submit</button>
+                <button className="button my-2" disabled={loadingSub}>Submit</button>
             </form>
         </div>
     );
